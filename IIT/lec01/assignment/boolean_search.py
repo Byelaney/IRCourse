@@ -19,7 +19,7 @@ def bye_punctuation(document):
         if letter in punctuation:
             doc.append(' ')
         else:
-            doc.append(letter)
+            doc.append(letter.lower())
     return ''.join(doc)
 
 def tokenize(document):
@@ -165,7 +165,7 @@ def search(index, query):
 
 
 
-    def main():
+def main():
     """ Main method. You should not modify this. """
     documents = open('documents.txt').readlines()
     tokens = [tokenize(d) for d in documents]
