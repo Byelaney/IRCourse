@@ -152,15 +152,16 @@ def search(index, query):
     >>> search({'a': [0, 1], 'b': [1, 2, 3], 'c': [4]}, 'a b')
     [1]
     """
-    result = []
-    tmp_query = tokenize(query)
-    if (1 == len(tmp_query)):
-        result = index[tmp_query[0]]
-    else:
-        result = index[tmp_query[0]]
-        for word in tmp_query[1:]:
-            result = intersect(result, index[word])
-    return result
+    token_value = tokenize(query)
+    sorted_list = sort_by_num_postings(token_value,index)
+    intersection_list = []
+    if(len(sorted_list) > 0):
+        intersection_list = index[sorted_list[0]]
+    i = 1
+    while(i < len(sorted_list)):
+        intersection_list = intersect(intersection_list,index[sorted_list[i]])
+        i+=1
+    return intersection_list
 
 
 
